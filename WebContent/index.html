@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="../static/text.css">
 </head>
 
-<body>
+<body class="body-back" style="background-image:url('photo/back.jfif')">
     <nav class="menu-wrap" style="background:rgb(70, 136, 235);float:left;z-index:9999">
         <div class="menu">
             <span style="color:#ffffff"><i style="width: 20%;" class="bi bi-arrow-right-circle"></i></span>
@@ -27,7 +27,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/algorithm">
+                    <a href="/login">
                         <i class="fa fa-flask fa-lg"></i>
                         <span class="nav-text">算法部分及参数</span>
                     </a>
@@ -49,14 +49,32 @@
     </nav>
     <div class="container">
         <div class="row">
-            <div class="card col-sm-12">
-                <div class="card-header">
+            <div class="card col-sm-9">
+                <div class="card-header" style="background-color: #6150f8;">
                     <h3 class="small-title">欢迎来到XX社区房屋管理系统</h3>
                 </div>
-                <div class="card-body"></div>
+                <div class="card-body" style="height: 578px;background-color: #11d8d8;">
+                    <img class="card-img-top index-photo" src="photo/building.jfif">
+                    
+                </div>
+                <div class="card-footer" style="background-color: #6150f8;">
+                    <p>
+                        XX社区房屋基本情况管理系统。请在入住后使用物业提供的账号密码登录后修改相关个人信息，如有房屋信息错误或需要变更请联系管理员进行更改。
+                    </p>
+                </div>
+            </div>
+            <div class="card col-sm-3">
+                <div class="card-header" style="background-color: #6150f8;">
+
+                </div>
+                <div class="card-body">
+                    <form action="/login" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded" target="_self" name="loginForm">
+                        <span>用户名：</span><input type="text" name="username"><br><br><br><br>
+                        <span style="white-space: pre;">密   码：</span><input type="password" name="password">
+                    </form>
+                </div>                
             </div>
         </div>
     </div>
 </body>
-
 </html>

@@ -6,6 +6,7 @@ const port = 10520
 
 app.use('/',express.static('WebContent'))
 app.use('/static',express.static('static'))
+app.use('/photo',express.static('photo'))
 
 app.get('/login',(req,res)=>{
     res.sendFile('login.html',{root:path.join(__dirname,'WebContent')},(err)=>{
@@ -21,6 +22,18 @@ app.get('/static/nav.css',(req,res)=>{
 
 app.get('/static/text.css',(req,res)=>{
     res.sendFile('text.css',{root:path.join(__dirname,'static')},(err)=>{
+        console.log(err)
+    })
+})
+
+app.get('/photo/building.jfif',(req,res)=>{
+    res.sendFile('building.jfif',{root:path.join(__dirname,'photo')},(err)=>{
+        console.log(err)
+    })
+})
+
+app.get('/photo/back.jfif',(req,res)=>{
+    res.sendFile('back.jfif',{root:path.join(__dirname,'photo')},(err)=>{
         console.log(err)
     })
 })

@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html>
+
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="../static/scripts/jquery-3.6.0.js" charset="utf-8"></script>
+    <script src="../static/scripts/data.js" charset="utf-8"></script>
+    <script src="../static/scripts/s1.js" charset="utf-8"></script>
+    <script src="../static/scripts/bootstrap.js" charset="utf-8"></script>
+    <script src="../static/scripts/echarts-5.0.2/dist/echarts.js" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css" href="../static/css/top.css" />
+    <link rel="stylesheet" href="../static/css/bootstrap-theme.css" />
+    <link rel="stylesheet" href="../static/css/bootstrap.css" />
+    <link rel="stylesheet" href="../static/css/style_menu.css" />
+    <link rel="stylesheet" href="../static/css/font-awesome.css" />
+    <link rel="icon" href="data:;base64,=" />
+    <title>项目展示</title>
+    <style>
+        h4:hover {
+            text-shadow: 0 0 20px #ec9a0d;
+        }
+    </style>
+</head>
+<body style="background-color: #0d163d;" >
+    <nav class="menu-wrap" style="background: #222;z-index: 9999">
+        <div class="menu">
+            <span style="color:#ffffff"><i class="fa fa-plane fa-lg"></i></span>
+            <ul>
+                <li>
+                    <a href="/">
+                        <i class="fa fa-desktop fa-lg"></i>
+                        <span class="nav-text">原始数据部分展示</span>
+                    </a>
+                </li>
+                <li style="background-color: #00bbbb">
+                    <a href="/algorithm">
+                        <i class="fa fa-flask fa-lg"></i>
+                        <span class="nav-text">算法部分及参数</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/weight">
+                        <i class="fa fa-lightbulb-o fa-lg"></i>
+                        <span class="nav-text">分类情况演示</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/download">
+                        <i class="fa fa-align-left fa-lg"></i>
+                        <span class="nav-text">完整名单表格下载</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container-fluid" id="container" style="margin-left:250px;width:1013px">
+        <div class="row">
+            <div class="col-sm-3 tit" style="margin-left:-30px"><h5 style="color:rgba(112,231,231,0.4);text-shadow:0 0 20px rgb(112,231,231)">最大树深度</h5></div>
+            <div class="col-sm-3 tit" style="margin-left: 20px"><h5 style="color:rgba(112,231,231,0.4);text-shadow:0 0 20px rgb(112,231,231)">学习率</h5></div>
+            <div class="col-sm-3 tit" style="margin-left:-30px"><h5 style="color:rgba(112,231,231,0.4);text-shadow:0 0 20px rgb(112,231,231)">粗调决策树数量</h5></div>
+            <div class="col-sm-3 tit"><h5 style="color:rgba(112,231,231,0.4);text-shadow:0 0 20px rgb(112,231,231)">细调决策树数量</h5></div>
+        </div>
+        <div class="row">
+            <div id="plot1" class="col-sm-3" style="width: 100%;height: 256px;margin-top:10px;margin-left: -100px;border:1px solid rgba(255,255,255,0.4);">
+
+            </div>
+            <div id="plot2" class="col-sm-3" style="width: 100%;height: 256px;margin-top:10px;border:1px solid rgba(255,255,255,0.4);">
+
+            </div>
+            <div id="plot3" class="col-sm-3" style="width: 100%;height: 256px;margin-left: 10px;margin-top:10px;border:1px solid rgba(255,255,255,0.4);">
+
+            </div>
+            <div id="plot4" class="col-sm-3" style="width: 100%;height: 256px;margin-top:10px;border:1px solid rgba(255,255,255,0.4);">
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3 tit" style="margin-left:-80px"><h5 style="color:rgba(112,231,255,0.4);text-shadow:0 0 20px rgb(112,231,255)">最小损失函数下降值</h5></div>
+            <div class="col-sm-3 tit" style="margin-left:0px"><h5 style="color:rgba(112,231,255,0.4);text-shadow:0 0 20px rgb(112,231,255)">特征随机抽样率范围</h5></div>
+            <div class="col-sm-3 tit" style="margin-left:15px"><h5 style="color:rgba(112,231,255,0.4);text-shadow:0 0 20px rgb(112,231,255)">前后模型效能对比</h5></div>
+            <div class="col-sm-3 tit"><h5 style="color:rgba(112,231,231,0.4);text-shadow:0 0 20px rgb(112,231,255)">前后模型过拟合对比</h5></div>
+        </div>
+        <div class="row">
+            <div id="plot5" class="col-sm-3" style="width: 100%;height: 256px;margin-left: -100px;margin-top: 10px;border:1px solid rgba(255,255,255,0.4);">
+
+            </div>
+            <div id="plot6" class="col-sm-3" style="width: 100%;height: 256px;margin-top:10px;border:1px solid rgba(255,255,255,0.4);">
+
+            </div>
+            <div id="bar1" class="col-sm-3" style="width: 100%;height: 256px;margin-left: 10px;margin-bottom:40px;margin-top:10px;border:1px solid rgba(255,255,255,0.4);">
+
+            </div>
+            <div id="bar2" class="col-sm-3" style="width: 100%;height: 256px;margin-bottom:40px;margin-top:10px;border:1px solid rgba(255,255,255,0.4);">
+
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        //bind_data_weight_pie(data_weight);
+        //tree_build(dicision_tree);
+        //bar_weight(sorted_pay);
+        //sev_plot(data_sev_plot, schema);
+        plot_chart1();
+        plot_chart2();
+        plot_chart3();
+        plot_chart4();
+        plot_chart5();
+        plot_chart6();
+        bar1();
+        bar2();
+    </script>
+
+    <script>
+        var screen_height = $(window).height();
+        $("#container").css("height", screen_height);
+        console.log(screen_height);
+        console.log($(window).width())
+    </script>
+</body>
+</html>

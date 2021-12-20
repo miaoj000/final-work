@@ -6,6 +6,7 @@ const mongoose = require('mongoose')
 const app = express()
 const port = 10520
 mongoose.connect('mongodb://localhost/test');
+const household = mongoose.model('household',{'name':String,'phoneNumber':String,'username':String,'password':String,'location':Number,'houseNumber':Number,'administrator':Boolean})
 
 app.use('/',express.static('WebContent'))
 app.use('/static',express.static('static'))
@@ -29,6 +30,12 @@ app.post('/login',(req,res)=>{
             console.log(data)
         }
         res.end()
+    })
+})
+
+app.get('/add',(req,res)=>{
+    res.sendFile('addHouse.html',{root:path.join(__dirname,'WebContent')},(err)=>{
+        console.log(err)
     })
 })
 

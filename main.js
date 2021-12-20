@@ -1,5 +1,4 @@
 const express = require('express')
-const ejs = require('ejs')
 const path = require('path')
 const fs = require('fs')
 const mongoose = require('mongoose')
@@ -34,7 +33,7 @@ app.post('/login',(req,res)=>{
 })
 
 app.get('/add',(req,res)=>{
-    res.sendFile('addHouse.html',{root:path.join(__dirname,'WebContent')},(err)=>{
+    res.sendFile('add.html',{root:path.join(__dirname,'WebContent')},(err)=>{
         console.log(err)
     })
 })

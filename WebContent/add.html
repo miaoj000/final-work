@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理系统</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../static/nav.css">
+    <link rel="stylesheet" href="../static/text.css">
+    <script>
+        function login(){
+            var url = '/login'
+            $.post(url = url,data = {
+                "username":$("#user").val(),
+                "password":$("#pass").val()
+            },success = (data,status)=>{
+                console.log(data)
+                $("#loginpage").replaceWith(data)
+                
+            })
+        }
+    
+        // function login(){
+        //     var url = '/login' + '?' + "username" + '=' + $("#user").val() +"&" + "password" + '=' + $("#pass").val()
+        //     $.get(url = url,success = (data,status,xhr)=>{
+        //         if (status == '200'){
+        //             $("#loginpage").replaceWith(data)
+        //         }else{
+        //             $("tip").html("用户名或密码错误！")
+        //             $("tip").css("color","red")
+        //         }
+        //     },dataType = "html")
+        // }
+    </script>
+</head>
+
+<body class="body-back" style="background-image:url('photo/back.jfif')">
+    <nav class="menu-wrap" style="background:rgb(70, 136, 235);float:left;z-index:9999">
+        <div class="menu">
+            <span style="color:#ffffff"><i style="width: 20%;" class="bi bi-arrow-right-circle"></i></span>
+            <ul>
+                <li>
+                    <a href="/">
+                        <i style="margin-left: -66px;" class="bi bi-hand-index-fill"></i>
+                        <span class="nav-text">首页</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/login">
+                        <i class="fa fa-flask fa-lg"></i>
+                        <span class="nav-text">算法部分及参数</span>
+                    </a>
+                </li>
+                <li style="background-color: #00bbbb">
+                    <a href="/weight">
+                        <i class="fa fa-lightbulb-o fa-lg"></i>
+                        <span class="nav-text">分类情况演示</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/add">
+                        <i class="fa fa-align-left fa-lg"></i>
+                        <span class="nav-text">注册</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="card col-sm-12" id="loginpage">
+                <div class="card-header" style="background-color: #6150f8;">
+                    
+                </div>
+                <div class="card-body">
+                    <form action="/login" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded" target="_self" name="loginForm">
+                        <span>用户名：</span><input type="text" name="username" id="user"><br><br><br>
+                        <span style="white-space: pre;">密   码：</span><input type="password" name="password" onkeyup="" onclick="" id="pass">
+                        <p id="tip"></p>
+                    </form>
+                </div>                
+            </div>
+        </div>
+    </div>
+</body>

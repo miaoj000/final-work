@@ -1,8 +1,11 @@
 const express = require('express')
 const ejs = require('ejs')
 const path = require('path')
+const fs = require('fs')
+const mongoose = require('mongoose')
 const app = express()
 const port = 10520
+mongoose.connect('mongodb://localhost/test');
 
 app.use('/',express.static('WebContent'))
 app.use('/static',express.static('static'))
@@ -11,6 +14,21 @@ app.use('/photo',express.static('photo'))
 app.get('/login',(req,res)=>{
     res.sendFile('login.html',{root:path.join(__dirname,'WebContent')},(err)=>{
         console.log(err)
+    })
+})
+
+app.post('/login',(req,res)=>{
+    res.status(200)
+    res.set('Content-Type', 'text/html')
+    fs.readFile('./WebContent/loginsuc.html','utf-8',(err,data)=>{
+        if(err){
+            res.send("<p>login error!</p>")
+            console.log(data)
+        }else{
+            res.send(data)
+            console.log(data)
+        }
+        res.end()
     })
 })
 

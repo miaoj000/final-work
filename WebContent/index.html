@@ -13,6 +13,31 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../static/nav.css">
     <link rel="stylesheet" href="../static/text.css">
+    <script>
+        function login(){
+            var url = '/login'
+            $.post(url = url,data = {
+                "username":$("#user").val(),
+                "password":$("#pass").val()
+            },success = (data,status)=>{
+                console.log(data)
+                $("#loginpage").replaceWith(data)
+                
+            })
+        }
+    
+        // function login(){
+        //     var url = '/login' + '?' + "username" + '=' + $("#user").val() +"&" + "password" + '=' + $("#pass").val()
+        //     $.get(url = url,success = (data,status,xhr)=>{
+        //         if (status == '200'){
+        //             $("#loginpage").replaceWith(data)
+        //         }else{
+        //             $("tip").html("用户名或密码错误！")
+        //             $("tip").css("color","red")
+        //         }
+        //     },dataType = "html")
+        // }
+    </script>
 </head>
 
 <body class="body-back" style="background-image:url('photo/back.jfif')">
@@ -63,14 +88,16 @@
                     </p>
                 </div>
             </div>
-            <div class="card col-sm-3">
+            <div class="card col-sm-3" id="loginpage">
                 <div class="card-header" style="background-color: #6150f8;">
 
                 </div>
                 <div class="card-body">
                     <form action="/login" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded" target="_self" name="loginForm">
-                        <span>用户名：</span><input type="text" name="username"><br><br><br><br>
-                        <span style="white-space: pre;">密   码：</span><input type="password" name="password">
+                        <span>用户名：</span><input type="text" name="username" id="user"><br><br><br><br>
+                        <span style="white-space: pre;">密   码：</span><input type="password" name="password" onkeyup="" onclick="" id="pass">
+                        <p id="tip"></p>
+                        <input type="button" value="登录" onclick="login()">
                     </form>
                 </div>                
             </div>
@@ -78,3 +105,4 @@
     </div>
 </body>
 </html>
+            

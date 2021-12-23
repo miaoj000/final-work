@@ -1,0 +1,22 @@
+<script type="text/javascript">
+    var secs = document.getElementById('sec').innerText
+    function redirect()
+    {
+        if (second < 0){
+                location.href = '/login';
+        } else{
+            document.getElementById('sec').innerText = second--;
+        }
+    }
+    setInterval("redirect()", 1000);
+</script>
+<div class="card-body">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h2 style="vertical-align: middle;text-align: center;">注册成功</h2>
+                <h4 id="time"><span id="sec">5</span>秒后自动跳转至首页</h4>
+            </div>
+        </div>
+    </div>
+</div>

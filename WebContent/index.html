@@ -20,8 +20,7 @@
                 "username":$("#user").val(),
                 "password":$("#pass").val()
             },success = (data,status)=>{
-                $("#loginpage").replaceWith(data)
-                
+                $("#loginpage").replaceWith(data)    
             })
         }
     
@@ -44,10 +43,10 @@
         <div class="menu">
             <span style="color:#ffffff"><i style="width: 20%;" class="bi bi-arrow-right-circle"></i></span>
             <ul>
-                <li>
+                <li style="background-color: #00bbbb">
                     <a href="/">
                         <i style="margin-left: -66px;" class="bi bi-hand-index-fill"></i>
-                        <span class="nav-text">首页</span>
+                        <span class="nav-text" style="margin-left: 56px;">首页</span>
                     </a>
                 </li>
                 <li>
@@ -56,7 +55,7 @@
                         <span class="nav-text">算法部分及参数</span>
                     </a>
                 </li>
-                <li style="background-color: #00bbbb">
+                <li>
                     <a href="/weight">
                         <i class="fa fa-lightbulb-o fa-lg"></i>
                         <span class="nav-text">分类情况演示</span>
@@ -103,6 +102,7 @@
                     </form>
                     <br>
                     <hr />
+                    <p>如果忘记了您的密码，请联系管理员解决。请保管好您的账号密码。</p>
                 </div>
 
             </div>

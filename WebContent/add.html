@@ -14,18 +14,22 @@
     <link rel="stylesheet" href="../static/nav.css">
     <link rel="stylesheet" href="../static/text.css">
     <script>
-        function login(){
-            var url = '/login'
-            $.post(url = url,data = {
-                "username":$("#user").val(),
-                "password":$("#pass").val()
-            },success = (data,status)=>{
+        function reg() {
+            var url = '/add'
+            $.post(url = url, data = {
+                "name": $("#name").val(),
+                "number": $("#number").val(),
+                "username": $("#user").val(),
+                "password": $("#pass").val(),
+                "lou": $("#lounum").val(),
+                "hu": $("#hunum").val()
+            }, success = (data, status) => {
                 console.log(data)
-                $("#loginpage").replaceWith(data)
-                
+                $("#regpage").replaceWith(data)
+
             })
         }
-    
+
         // function login(){
         //     var url = '/login' + '?' + "username" + '=' + $("#user").val() +"&" + "password" + '=' + $("#pass").val()
         //     $.get(url = url,success = (data,status,xhr)=>{
@@ -48,7 +52,7 @@
                 <li>
                     <a href="/">
                         <i style="margin-left: -66px;" class="bi bi-hand-index-fill"></i>
-                        <span class="nav-text">首页</span>
+                        <span class="nav-text" style="margin-left: 56px;">首页</span>
                     </a>
                 </li>
                 <li>
@@ -57,13 +61,13 @@
                         <span class="nav-text">算法部分及参数</span>
                     </a>
                 </li>
-                <li style="background-color: #00bbbb">
+                <li>
                     <a href="/weight">
                         <i class="fa fa-lightbulb-o fa-lg"></i>
                         <span class="nav-text">分类情况演示</span>
                     </a>
                 </li>
-                <li>
+                <li style="background-color: #00bbbb">
                     <a href="/add">
                         <i class="fa fa-align-left fa-lg"></i>
                         <span class="nav-text">注册</span>
@@ -76,15 +80,55 @@
         <div class="row">
             <div class="card col-sm-12" id="loginpage">
                 <div class="card-header" style="background-color: #6150f8;">
-                    
+                    <h3>注册请如实填写相关信息</h3>
                 </div>
-                <div class="card-body">
-                    <form action="/login" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded" target="_self" name="loginForm">
-                        <span>用户名：</span><input type="text" name="username" id="user"><br><br><br>
-                        <span style="white-space: pre;">密   码：</span><input type="password" name="password" onkeyup="" onclick="" id="pass">
-                        <p id="tip"></p>
+                <div class="card-body" id="regpage">
+                    <form action="/add" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded"
+                        target="_self" name="loginForm">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <span style="white-space: pre;">姓       名：</span><input type="text" name="name" id="name"><span style="color: red;"> *</span><br><br><br>
+                                    <span style="white-space: pre;">联系方式：</span><input type="text" name="number" id="number"><span style="color: red;"> *</span><br><br><br>
+                                    <span style="white-space: pre;">楼       号：</span><input id="lounum" name="lounum" type="text" list="list1" placeholder="请选择">
+                                    <datalist id="list1">
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                        <option>6</option>
+                                        <option>7</option>
+                                        <option>8</option>
+                                        <option>9</option>
+                                        <option>10</option>
+                                    </datalist><span style="color: red;"> *</span>
+                                </div>
+                                <div class="col-sm-6">
+                                    <span style="white-space: pre;">用 户 名：</span><input type="text" name="username" id="user"><span style="color: red;"> *</span><br><br><br>
+                                    <span style="white-space: pre;">密     码：</span><input type="password" name="password" id="pass"><span style="color: red;"> *</span><br><br><br>
+                                    <span style="white-space: pre;">户     号：</span><input id="hunum" type="text" name="hunum" list="list2" placeholder="请选择">
+                                    <datalist id="list2">
+                                        <option>101</option>
+                                        <option>102</option>
+                                        <option>201</option>
+                                        <option>202</option>
+                                        <option>301</option>
+                                        <option>302</option>
+                                        <option>401</option>
+                                        <option>402</option>
+                                        <option>501</option>
+                                        <option>502</option>
+                                    </datalist><span style="color: red;"> *</span>
+                                </div>
+                                <input type="button" value="注册" class="col-sm-2 offset-sm-5 btn btn-primary" onclick="reg()"> 
+                            </div>
+                        </div>
                     </form>
-                </div>                
+                </div>
+                <div class="body-footer" style="background-color: #6150f8;">
+                    <p>如果您的房屋已被注册，且注册者不是您，或者忘记了您的密码，请联系管理员解决。请保管好您的账号密码。</p>
+                </div>
             </div>
         </div>
     </div>

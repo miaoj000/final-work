@@ -3,6 +3,9 @@ const path = require('path')
 const fs = require('fs')
 const mongoose = require('mongoose')
 const app = express()
+const bodyParser = require('body-parser')
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
 const port = 10520
 mongoose.connect('mongodb://localhost/test');
 const household = mongoose.model('household',{'name':String,'phoneNumber':String,'username':String,'password':String,'location':Number,'houseNumber':Number,'administrator':Boolean})
@@ -18,6 +21,10 @@ app.get('/login',(req,res)=>{
 })
 
 app.post('/login',(req,res)=>{
+    console.log(req.body)
+    var username = req.body.username
+    var password = req.body.password
+    // household.findOne()
     res.status(200)
     res.set('Content-Type', 'text/html')
     fs.readFile('./WebContent/loginsuc.html','utf-8',(err,data)=>{
@@ -34,6 +41,21 @@ app.post('/login',(req,res)=>{
 
 app.get('/add',(req,res)=>{
     res.sendFile('add.html',{root:path.join(__dirname,'WebContent')},(err)=>{
+        console.log(err)
+    })
+})
+
+app.post('/add',(req,res)=>{
+    console.log(req.body)
+    var name = req.body.name
+    var number = req.body.number
+    var username = req.body.username
+    var password = req.body.password
+    var lou = req.body.lou
+    var hu = req.body.hu
+    var housePer = new household({'name':name,'phoneNumber':number,'username':username,'password':password,'location':parseInt(lou),'houseNumber':parseInt(hu),'administrator':false})
+    housePer.save()
+    res.sendFile('regcomplete.html',{root:path.join(__dirname,'WebContent')},(err)=>{
         console.log(err)
     })
 })

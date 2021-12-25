@@ -1,11 +1,10 @@
 <script type="text/javascript">
     var secs = document.getElementById('sec').innerText
-    function redirect()
-    {
-        if (second < 0){
-                location.href = '/login';
+    function redirect(){
+        if (secs < 0){
+                location.href = '/';
         } else{
-            document.getElementById('sec').innerText = second--;
+            document.getElementById('sec').innerText = secs--;
         }
     }
     setInterval("redirect()", 1000);
@@ -15,7 +14,7 @@
         <div class="row">
             <div class="col-sm-12">
                 <h2 style="vertical-align: middle;text-align: center;">注册成功</h2>
-                <h4 id="time"><span id="sec">5</span>秒后自动跳转至首页</h4>
+                <h4 id="time"><span id="sec">3</span>秒后自动跳转至首页</h4>
             </div>
         </div>
     </div>

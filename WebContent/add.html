@@ -26,25 +26,12 @@
             }, success = (data, status) => {
                 console.log(data)
                 $("#regpage").replaceWith(data)
-
             })
         }
-
-        // function login(){
-        //     var url = '/login' + '?' + "username" + '=' + $("#user").val() +"&" + "password" + '=' + $("#pass").val()
-        //     $.get(url = url,success = (data,status,xhr)=>{
-        //         if (status == '200'){
-        //             $("#loginpage").replaceWith(data)
-        //         }else{
-        //             $("tip").html("用户名或密码错误！")
-        //             $("tip").css("color","red")
-        //         }
-        //     },dataType = "html")
-        // }
     </script>
 </head>
 
-<body class="body-back" style="background-image:url('photo/back.jfif')">
+<body class="body-back">
     <nav class="menu-wrap" style="background:rgb(70, 136, 235);float:left;z-index:9999">
         <div class="menu">
             <span style="color:#ffffff"><i style="width: 20%;" class="bi bi-arrow-right-circle"></i></span>
@@ -78,19 +65,21 @@
     </nav>
     <div class="container">
         <div class="row">
-            <div class="card col-sm-12" id="loginpage">
+            <div class="card col-sm-10 offset-sm-1" id="loginpage">
                 <div class="card-header" style="background-color: #6150f8;">
                     <h3>注册请如实填写相关信息</h3>
                 </div>
                 <div class="card-body" id="regpage">
-                    <form action="/add" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded"
-                        target="_self" name="loginForm">
+                    <form action="/add" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded" target="_self" name="regForm" style="height: 100%;">
                         <div class="container">
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <span style="white-space: pre;">姓       名：</span><input type="text" name="name" id="name"><span style="color: red;"> *</span><br><br><br>
-                                    <span style="white-space: pre;">联系方式：</span><input type="text" name="number" id="number"><span style="color: red;"> *</span><br><br><br>
-                                    <span style="white-space: pre;">楼       号：</span><input id="lounum" name="lounum" type="text" list="list1" placeholder="请选择">
+                                    <span style="white-space: pre;">姓       名：</span><input type="text" name="name"
+                                        id="name"><span style="color: red;"> *</span><br><br><br>
+                                    <span style="white-space: pre;">联系方式：</span><input type="text" name="number"
+                                        id="number"><span style="color: red;"> *</span><br><br><br>
+                                    <span style="white-space: pre;">楼       号：</span><input id="lounum" name="lounum"
+                                        type="text" list="list1" placeholder="请选择">
                                     <datalist id="list1">
                                         <option>1</option>
                                         <option>2</option>
@@ -105,9 +94,12 @@
                                     </datalist><span style="color: red;"> *</span>
                                 </div>
                                 <div class="col-sm-6">
-                                    <span style="white-space: pre;">用 户 名：</span><input type="text" name="username" id="user"><span style="color: red;"> *</span><br><br><br>
-                                    <span style="white-space: pre;">密     码：</span><input type="password" name="password" id="pass"><span style="color: red;"> *</span><br><br><br>
-                                    <span style="white-space: pre;">户     号：</span><input id="hunum" type="text" name="hunum" list="list2" placeholder="请选择">
+                                    <span style="white-space: pre;">用 户 名：</span><input type="text" name="username"
+                                        id="user"><span style="color: red;"> *</span><br><br><br>
+                                    <span style="white-space: pre;">密     码：</span><input type="password" name="password"
+                                        id="pass"><span style="color: red;"> *</span><br><br><br>
+                                    <span style="white-space: pre;">户     号：</span><input id="hunum" type="text"
+                                        name="hunum" list="list2" placeholder="请选择">
                                     <datalist id="list2">
                                         <option>101</option>
                                         <option>102</option>
@@ -121,7 +113,8 @@
                                         <option>502</option>
                                     </datalist><span style="color: red;"> *</span>
                                 </div>
-                                <input type="button" value="注册" class="col-sm-2 offset-sm-5 btn btn-primary" onclick="reg()"> 
+                                <input type="button" value="注册" class="col-sm-2 offset-sm-5 btn btn-primary"
+                                    onclick="reg()" style="margin-top: 16%;">
                             </div>
                         </div>
                     </form>
@@ -130,6 +123,7 @@
                     <p>如果您的房屋已被注册，且注册者不是您，或者忘记了您的密码，请联系管理员解决。请保管好您的账号密码。</p>
                 </div>
             </div>
+
         </div>
     </div>
 </body>

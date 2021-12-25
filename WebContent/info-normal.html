@@ -26,6 +26,17 @@
                 $("#uname").text(us)   
             })
         }
+        // function login(){
+        //     var url = '/login' + '?' + "username" + '=' + $("#user").val() +"&" + "password" + '=' + $("#pass").val()
+        //     $.get(url = url,success = (data,status,xhr)=>{
+        //         if (status == '200'){
+        //             $("#loginpage").replaceWith(data)
+        //         }else{
+        //             $("tip").html("用户名或密码错误！")
+        //             $("tip").css("color","red")
+        //         }
+        //     },dataType = "html")
+        // }
     </script>
 </head>
 
@@ -65,7 +76,7 @@
                     </a>
                 </li>
                 <li id="deal" style="visibility: hidden;">
-                    <a href="/response">
+                    <a href="/request">
                         <i class="fa fa-lightbulb-o fa-lg"></i>
                         <span class="nav-text">分类情况演示</span>
                     </a>
@@ -111,5 +122,10 @@
         </div>
     </div>
 </body>
+<script type="javascript">
+    $.post(url='/myInfo',(data)=>{
+        
+    })
+</script>
 </html>
             

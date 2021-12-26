@@ -1,0 +1,23 @@
+<div class="card-body regpage">
+    <form action="/add" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded" target="_self" name="regForm" style="height: 100%;">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <span style="white-space: pre;">姓       名：</span><input type="text" name="name"
+                        id="name"><span style="color: red;"> *</span><br><br><br>
+                    <span style="white-space: pre;">联系方式：</span><input type="text" name="number"
+                        id="number"><span style="color: red;"> *</span><br><br><br>
+                </div>
+                <div class="col-sm-6">
+                    <span style="white-space: pre;">用 户 名：</span><input type="text" name="username"
+                        id="user"><span style="color: red;"> *</span><br><br><br>
+                    <span style="white-space: pre;">密     码：</span><input type="password" name="password"
+                        id="pass"><span style="color: red;"> *</span><br><br><br>
+                </div><br><br>
+                <p class="alert"><%= al %></p>
+                <input type="button" value="注册" class="col-sm-2 offset-sm-5 btn btn-primary"
+                    onclick="reg()" style="margin-top: 16%;">
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,4 +1,5 @@
 const express = require('express')
+const ejs = require('ejs')
 const path = require('path')
 const fs = require('fs')
 const mongoose = require('mongoose')
@@ -11,45 +12,54 @@ app.use(session({
 }))
 const bodyParser = require('body-parser')
 const { json } = require('express/lib/response')
+const e = require('express')
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 const port = 10520
 mongoose.connect('mongodb://localhost/test');
-const household = mongoose.model('household',{'name':String,'phoneNumber':String,'username':String,'password':String,'location':Number,'houseNumber':Number,'administrator':Boolean})
+const userinfo = mongoose.model('user',{'name':String,'phoneNumber':String,'username':{type:String,unique:true},'password':String,'administrator':{type:Boolean,default:false}})
+const household = mongoose.model('household',{'name':String,'location':Number,'houseNumber':Number})
+const requestchange = mongoose.model('request',{'name':String,'phoneNumber':String,'location':Number,'houseNumber':Number})
 
 app.use('/',express.static('WebContent'))
 app.use('/static',express.static('static'))
 app.use('/photo',express.static('photo'))
 
-// app.get('/login',(req,res)=>{
-//     res.sendFile('login.html',{root:path.join(__dirname,'WebContent')},(err)=>{
-//         console.log(err)
-//     })
-// })
+app.get('/index',(req,res)=>{
+    res.sendFile('index.html',{root:path.join(__dirname,'WebContent')},(err)=>{
+        // console.log(err)
+    })
+})
 
-app.post('/login',(req,res)=>{
+app.get('/WebContent/login.html',(req,res)=>{
+    res.sendFile('login.html',{root:path.join(__dirname,'WebContent')},(err)=>{
+        // console.log(err)
+    })
+})
+
+app.get('/WebContent/index-ejs.html',(req,res)=>{
+    res.sendFile('index-ejs.html',{root:path.join(__dirname,'WebContent')},(err)=>{
+        // console.log(err)
+    })
+})
+
+app.use('/login',(req,res)=>{
     var username = req.body.username
     var password = req.body.password
-    household.count({'username':username,'password':password},callback=(err,counts)=>{
+    userinfo.count({'username':username,'password':password},callback=(err,counts)=>{
         if (err) console.log(err)
         else{
             var numbers_fit = counts
-            household.find({'username':username,'password':password},callback=(err,households)=>{
+            userinfo.findOne({'username':username,'password':password},callback=(err,infos)=>{
                 if (err) console.log(err)
                 if (numbers_fit){
                     res.status(200)
                     res.set('Content-Type', 'text/html')
-                    for(i=0;i<numbers_fit;i++){
-                        if(i==0){
-                            req.session.username = username
-                            req.session.administrator = households[i].administrator
-                            req.session.password = password
-                            req.session.name = households[i].name
-                            req.session.number = households[i].phoneNumber
-                        }
-                        req.session.house = households[i].location + "幢" + households[i].houseNumber + "室"
-                        console.log(req.session.house)
-                    }
+                    req.session.username = username
+                    req.session.administrator = infos.administrator
+                    req.session.password = password
+                    req.session.name = infos.name
+                    req.session.number = infos.phoneNumber
                     fs.readFile('./WebContent/loginsuc.html','utf-8',(err,data)=>{
                         if(err){
                             res.send("<p>login error!</p>")
@@ -59,8 +69,9 @@ app.post('/login',(req,res)=>{
                         res.end()
                     })
                 }else{
-                    res.status(301)
-                    res.send("用户名或密码错误！")
+                    ejs.renderFile('./WebContent/login.html',data = {tip:"用户名或密码错误！"},(err,str)=>{
+                        res.send(str)
+                    })
                 }
             })
         }      
@@ -74,25 +85,56 @@ app.get('/add',(req,res)=>{
 })
 
 app.post('/add',(req,res)=>{
-    console.log(req.body)
     var name = req.body.name
     var number = req.body.number
     var username = req.body.username
-    var password = req.body.password
-    var lou = req.body.lou
-    var hu = req.body.hu
-    var housePer = new household({'name':name,'phoneNumber':number,'username':username,'password':password,'location':parseInt(lou),'houseNumber':parseInt(hu),'administrator':false})
-    housePer.save()
-    res.sendFile('regcomplete.html',{root:path.join(__dirname,'WebContent')},(err)=>{
-        console.log(err)
+    userinfo.count({'username':username},(err,num)=>{
+        if(num){
+            ejs.renderFile('./WebContent/reg.html',data = {al:"用户名已存在！"},(err,str)=>{
+                res.send(str)
+            })
+        }else{
+            var password = req.body.password
+            var housePer = new userinfo({'name':name,'phoneNumber':number,'username':username,'password':password})
+            housePer.save()
+            res.sendFile('regcomplete.html',{root:path.join(__dirname,'WebContent')},(err)=>{
+                console.log(err)
+            })
+        }
     })
 })
 
-app.get('/myInfo',(req,res)=>{
-    if(req.session.username != '' && req.session.username != 'undefined'){
+app.get('/info',(req,res)=>{
+    if(req.session.username){  
+        console.log(req.session.name)
         if(req.session.administrator == false){
-            res.sendFile('info-norm.html',{root:path.join(__dirname,'WebContent')},(err)=>{
-                console.log(err)
+            household.count({'name':req.session.name},(err,houses)=>{
+                console.log(houses)
+                if(houses){
+                    household.find({'name':req.session.name},(err,houseinfos)=>{
+                        var houseInfo
+                        for(var i=0;i<houses;i++){
+                            houseInfo = houseInfo + houseinfos[i].location + "幢" + houseinfos[i].houseNumber + "室" + " "
+                        }
+                        ejs.renderFile('./WebContent/info-normal.html',data={
+                            name:req.session.name,
+                            number:req.session.number,
+                            username:req.session.username,
+                            house:houseInfo
+                        },(err,str)=>{
+                            res.send(str)
+                        })
+                    })
+                }else{
+                    ejs.renderFile('./WebContent/info-normal.html',data={
+                        name:req.session.name,
+                        number:req.session.number,
+                        username:req.session.username,
+                        house:'无'
+                    },(err,str)=>{
+                        res.send(str)
+                    })
+                }
             })
         }else{
             res.sendFile('info-admin.html',{root:path.join(__dirname,'WebContent')},(err)=>{
@@ -100,19 +142,16 @@ app.get('/myInfo',(req,res)=>{
             })
         }   
     }else{
-        res.send('alert')
+        ejs.renderFile('./WebContent/index-ejs.html',data = {tip:"请登录！"},(err,str)=>{
+            res.send(str)
+        })
     }
 })
 
-app.post('/myInfo',(req,res)=>{
-    var infoJson = {
-        'name':req.session.name,
-        'username':req.session.username,
-        'password':req.session.password,
-        'phoneNumber':req.session.number,
-        'info':req.session.house = households[i].location + "幢" + households[i].houseNumber + "室"
-        }
-    res.send(infoJson)
+app.get('/change',(req,res)=>{
+    res.sendFile('change.html',{root:path.join(__dirname,'WebContent')},(err)=>{
+        console.log(err)
+    })
 })
 
 app.get('/logout', function(req, res) {
@@ -123,7 +162,7 @@ app.get('/logout', function(req, res) {
 
 app.get('/static/nav.css',(req,res)=>{
     res.sendFile('nav.css',{root:path.join(__dirname,'static')},(err)=>{
-        console.log(err)
+        // console.log(err)
     })
 })
 

@@ -21,7 +21,6 @@
                 "username":$("#user").val(),
                 "password":$("#pass").val()
             },success = (data,status)=>{
-                console.log(data)
                 $("#loginpage").replaceWith(data) 
                 $("#uname").text(us)   
             })
@@ -41,15 +40,9 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/myInfo">
+                    <a href="/info">
                         <i class="bi bi-info-circle"></i>
                         <span class="nav-text">我的信息</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/request">
-                        <i class="bi bi-chat-left"></i>
-                        <span class="nav-text">信息修改申请</span>
                     </a>
                 </li>
                 <li>
@@ -62,12 +55,6 @@
                     <a href="/logout">
                         <i class="bi bi-box-arrow-left"></i>
                         <span class="nav-text" style="margin-left: 54px;">登出</span>
-                    </a>
-                </li>
-                <li id="deal" style="visibility: hidden;">
-                    <a href="/response">
-                        <i class="fa fa-lightbulb-o fa-lg"></i>
-                        <span class="nav-text">分类情况演示</span>
                     </a>
                 </li>
             </ul>

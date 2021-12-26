@@ -1,0 +1,19 @@
+<div class="card col-sm-3" id="loginpage">
+    <div class="card-header" style="background-color: #6150f8;">
+        <h3>登录</h3>
+    </div>
+    <div class="card-body">
+        <form action="/login" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded" target="_self" name="loginForm">
+            <span>用户名：</span><input type="text" name="username" id="user"><br><br><br>
+            <span style="white-space: pre;">密   码：</span><input type="password" name="password" onkeyup="" onclick="" id="pass">
+            <p class="alert"><%=  tip %></p>
+            <div class="row">
+                <input type="button" value="登录" class="col-sm-3 offset-sm-2 btn btn-primary" onclick="login()"> 
+                <input type="button" value="注册" class="col-sm-3 offset-sm-2 btn btn-primary" onclick="(function(){window.location.href='./add.html'})()" >
+            </div>
+        </form>
+        <br>
+        <hr />
+        <p>如果忘记了您的密码，请联系管理员解决。请保管好您的账号密码。</p>
+    </div>
+</div>

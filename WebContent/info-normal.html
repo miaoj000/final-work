@@ -14,29 +14,12 @@
     <link rel="stylesheet" href="../static/nav.css">
     <link rel="stylesheet" href="../static/text.css">
     <script>
-        function login(){
-            var url = '/login'
-            var us = $("#user").val()
-            $.post(url = url,data = {
-                "username":$("#user").val(),
-                "password":$("#pass").val()
-            },success = (data,status)=>{
-                console.log(data)
-                $("#loginpage").replaceWith(data) 
-                $("#uname").text(us)   
+        function show() {
+            var url = '/change'
+            $.get(url = url, success = (data, status) => {
+                $("#replaced").replaceWith(data)
             })
         }
-        // function login(){
-        //     var url = '/login' + '?' + "username" + '=' + $("#user").val() +"&" + "password" + '=' + $("#pass").val()
-        //     $.get(url = url,success = (data,status,xhr)=>{
-        //         if (status == '200'){
-        //             $("#loginpage").replaceWith(data)
-        //         }else{
-        //             $("tip").html("用户名或密码错误！")
-        //             $("tip").css("color","red")
-        //         }
-        //     },dataType = "html")
-        // }
     </script>
 </head>
 
@@ -45,40 +28,28 @@
         <div class="menu">
             <span style="color:#ffffff"><i style="width: 20%;" class="bi bi-arrow-right-circle"></i></span>
             <ul>
-                <li style="background-color: #00bbbb">
+                <li>
                     <a href="/">
                         <i style="margin-left: -66px;" class="bi bi-hand-index-fill"></i>
                         <span class="nav-text" style="margin-left: 56px;">首页</span>
                     </a>
                 </li>
                 <li>
-                    <a href="/myInfo">
-                        <i class="bi bi-info-circle"></i>
-                        <span class="nav-text">我的信息</span>
+                    <a href="/login">
+                        <i class="fa fa-flask fa-lg"></i>
+                        <span class="nav-text">算法部分及参数</span>
                     </a>
                 </li>
                 <li>
-                    <a href="/request">
-                        <i class="bi bi-chat-left"></i>
-                        <span class="nav-text">信息修改申请</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/add">
-                        <i class="bi bi-123" style="margin-left: -64px;"></i>
-                        <span class="nav-text" style="margin-left: 54px;">注册</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/logout">
-                        <i class="bi bi-box-arrow-left"></i>
-                        <span class="nav-text" style="margin-left: 54px;">登出</span>
-                    </a>
-                </li>
-                <li id="deal" style="visibility: hidden;">
-                    <a href="/request">
+                    <a href="/weight">
                         <i class="fa fa-lightbulb-o fa-lg"></i>
                         <span class="nav-text">分类情况演示</span>
+                    </a>
+                </li>
+                <li style="background-color: #00bbbb">
+                    <a href="/add">
+                        <i class="fa fa-align-left fa-lg"></i>
+                        <span class="nav-text">注册</span>
                     </a>
                 </li>
             </ul>
@@ -86,46 +57,37 @@
     </nav>
     <div class="container">
         <div class="row">
-            <div class="card col-sm-9">
+            <div class="card col-sm-7 offset-sm-1" id="loginpage">
                 <div class="card-header" style="background-color: #6150f8;">
-                    <h3 class="small-title">欢迎来到XX社区房屋管理系统</h3>
+                    <h3>注册请如实填写相关信息</h3>
                 </div>
-                <div class="card-body" style="height: 578px;background-color: #11d8d8;">
-                    <img class="card-img-top index-photo" src="photo/building.jfif">
-                    
+                <div class="card-body" style="height: 595px;">
+                    <form action="/add" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded" target="_self" name="regForm" style="height: 100%;">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-6 offset-sm-3">
+                                    <span style="white-space: pre;">姓       名：</span><span><%= name %></span><br><br>
+                                    <span style="white-space: pre;">联系方式：</span><span><%= number %></span><br><br>
+                                    <span style="white-space: pre;">用 户 名：</span><span><%= username %></span><br><br>
+                                    <span style="white-space: pre;">拥有房屋：</span><span><%= house %></span>
+                                </div><br><br><br><br><br><br>
+                                <div id="replaced"></div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                <div class="card-footer" style="background-color: #6150f8;">
-                    <p>
-                        XX社区房屋基本情况管理系统。请在入住后使用物业提供的账号密码登录后修改相关个人信息，如有房屋信息错误或需要变更请联系管理员进行更改。
-                    </p>
+                <div class="body-footer" style="background-color: #6150f8;">
+                    <p>如果您的房屋已被注册，且注册者不是您，或者忘记了您的密码，请联系管理员解决。请保管好您的账号密码。</p>
                 </div>
             </div>
-            <div class="card col-sm-3" id="loginpage">
+            <div class="card col-sm-3">
                 <div class="card-header" style="background-color: #6150f8;">
                     <h3>登录</h3>
                 </div>
-                <div class="card-body">
-                    <form action="/login" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded" target="_self" name="loginForm">
-                        <span>用户名：</span><input type="text" name="username" id="user"><br><br><br>
-                        <span style="white-space: pre;">密   码：</span><input type="password" name="password" onkeyup="" onclick="" id="pass">
-                        <p id="tip"></p>
-                        <div class="row">
-                            <input type="button" value="登录" class="col-sm-3 offset-sm-2 btn btn-primary" onclick="login()"> 
-                            <input type="button" value="注册" class="col-sm-3 offset-sm-2 btn btn-primary" onclick="(function(){window.location.href='./add.html'})()" >
-                        </div>
-                    </form>
-                    <br>
-                    <hr />
-                    <p>如果忘记了您的密码，请联系管理员解决。请保管好您的账号密码。</p>
+                <div class="card-body" style="height: 595px;">
+                    <h6>有房屋信息变更？点击下方按钮修改您和您的账号拥有的房屋情况！</h6><br><br><hr>
+                    <button type="button" class="col-sm-4 offset-sm-4 btn btn-primary" onclick="show()">修改</button>
                 </div>
-            </div>
         </div>
     </div>
 </body>
-<script type="javascript">
-    $.post(url='/myInfo',(data)=>{
-        
-    })
-</script>
-</html>
-            

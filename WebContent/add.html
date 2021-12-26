@@ -69,7 +69,7 @@
                 <div class="card-header" style="background-color: #6150f8;">
                     <h3>注册请如实填写相关信息</h3>
                 </div>
-                <div class="card-body" id="regpage">
+                <div class="card-body regpage">
                     <form action="/add" method="post" accept-charset="utf-8" enctype="application/x-www-form-urlencoded" target="_self" name="regForm" style="height: 100%;">
                         <div class="container">
                             <div class="row">
@@ -78,43 +78,15 @@
                                         id="name"><span style="color: red;"> *</span><br><br><br>
                                     <span style="white-space: pre;">联系方式：</span><input type="text" name="number"
                                         id="number"><span style="color: red;"> *</span><br><br><br>
-                                    <span style="white-space: pre;">楼       号：</span><input id="lounum" name="lounum"
-                                        type="text" list="list1" placeholder="请选择">
-                                    <datalist id="list1">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                        <option>6</option>
-                                        <option>7</option>
-                                        <option>8</option>
-                                        <option>9</option>
-                                        <option>10</option>
-                                    </datalist><span style="color: red;"> *</span>
                                 </div>
                                 <div class="col-sm-6">
                                     <span style="white-space: pre;">用 户 名：</span><input type="text" name="username"
                                         id="user"><span style="color: red;"> *</span><br><br><br>
                                     <span style="white-space: pre;">密     码：</span><input type="password" name="password"
                                         id="pass"><span style="color: red;"> *</span><br><br><br>
-                                    <span style="white-space: pre;">户     号：</span><input id="hunum" type="text"
-                                        name="hunum" list="list2" placeholder="请选择">
-                                    <datalist id="list2">
-                                        <option>101</option>
-                                        <option>102</option>
-                                        <option>201</option>
-                                        <option>202</option>
-                                        <option>301</option>
-                                        <option>302</option>
-                                        <option>401</option>
-                                        <option>402</option>
-                                        <option>501</option>
-                                        <option>502</option>
-                                    </datalist><span style="color: red;"> *</span>
                                 </div>
                                 <input type="button" value="注册" class="col-sm-2 offset-sm-5 btn btn-primary"
-                                    onclick="reg()" style="margin-top: 16%;">
+                                    onclick="reg()" style="margin-top: 14%;">
                             </div>
                         </div>
                     </form>

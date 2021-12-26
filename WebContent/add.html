@@ -16,17 +16,19 @@
     <script>
         function reg() {
             var url = '/add'
-            $.post(url = url, data = {
-                "name": $("#name").val(),
-                "number": $("#number").val(),
-                "username": $("#user").val(),
-                "password": $("#pass").val(),
-                "lou": $("#lounum").val(),
-                "hu": $("#hunum").val()
-            }, success = (data, status) => {
-                console.log(data)
-                $("#regpage").replaceWith(data)
-            })
+            if($("#name").val()!=''&&$("#number").val()!=''&&$("#user").val()!=''&&$("#pass").val()!=''){
+                $.post(url = url, data = {
+                    "name": $("#name").val(),
+                    "number": $("#number").val(),
+                    "username": $("#user").val(),
+                    "password": $("#pass").val(),
+                }, success = (data, status) => {
+                    console.log(data)
+                    $("#regpage").replaceWith(data)
+                })
+            }else{
+                $('#l').text("不能为空！")
+            }            
         }
     </script>
 </head>
@@ -85,6 +87,7 @@
                                     <span style="white-space: pre;">密     码：</span><input type="password" name="password"
                                         id="pass"><span style="color: red;"> *</span><br><br><br>
                                 </div>
+                                <p class="alert" id='l'></p>
                                 <input type="button" value="注册" class="col-sm-2 offset-sm-5 btn btn-primary"
                                     onclick="reg()" style="margin-top: 14%;">
                             </div>

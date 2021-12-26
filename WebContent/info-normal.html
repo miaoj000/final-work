@@ -20,6 +20,24 @@
                 $("#replaced").replaceWith(data)
             })
         }
+        function add(){
+            var url = '/addChange'
+            $.post(url = url,data={
+                lou:$('#lounum').val(),
+                hu:$('#hunum').val()
+            }, success = (data) => {
+                $("#suc").text(data)
+            })
+        }
+        function rem(){
+            var url = '/rmChange'
+            $.post(url = url,data={
+                lou:$('#lounum').val(),
+                hu:$('#hunum').val()
+            } ,success = (data) => {
+                $("#suc").text(data)
+            })
+        }
     </script>
 </head>
 
@@ -69,9 +87,12 @@
                                     <span style="white-space: pre;">姓       名：</span><span><%= name %></span><br><br>
                                     <span style="white-space: pre;">联系方式：</span><span><%= number %></span><br><br>
                                     <span style="white-space: pre;">用 户 名：</span><span><%= username %></span><br><br>
-                                    <span style="white-space: pre;">拥有房屋：</span><span><%= house %></span>
+                                    <span style="white-space: pre;">拥有房屋：</span><span><%= house %></span><br><br>
+                                    <span style="white-space: pre;">现有申请：</span><br>
+                                    <span><%= change %></span>
                                 </div><br><br><br><br><br><br>
                                 <div id="replaced"></div>
+                                <span id="suc"></span>
                             </div>
                         </div>
                     </form>
@@ -88,6 +109,7 @@
                     <h6>有房屋信息变更？点击下方按钮修改您和您的账号拥有的房屋情况！</h6><br><br><hr>
                     <button type="button" class="col-sm-4 offset-sm-4 btn btn-primary" onclick="show()">修改</button>
                 </div>
+            </div>
         </div>
     </div>
 </body>

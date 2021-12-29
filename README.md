@@ -1,3 +1,4 @@
-# final-work
-a final work for class about opensoursesoftware
-completing...
+# 期末作业-社区房屋管理系统
+## 一、项目设计
+### 1.项目总体构成
+

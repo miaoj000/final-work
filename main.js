@@ -1,23 +1,20 @@
 const express = require('express')
 const ejs = require('ejs')
 const path = require('path')
-const fs = require('fs')
 const mongoose = require('mongoose')
-const app = express()
 const session = require('express-session')
+const bodyParser = require('body-parser')
 app.use(session({
     secret: 'miaojunjie',
     resave: false,
     saveUninitialized: true
 }))
-const bodyParser = require('body-parser')
-const { json } = require('express/lib/response')
-const e = require('express')
+const app = express()
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 const port = 10520
 mongoose.connect('mongodb://localhost/test')
-// mongoose.connect('mongodb://172.21.2.236:10520/190110910520');数据库请链接你的数据库
+// mongoose.connect('mongodb://172.21.2.236:10520/190110910520') 数据库请链接你的数据库
 const userinfo = mongoose.model('user', { 'name': String, 'phoneNumber': String, 'username': { type: String, unique: true }, 'password': String, 'administrator': { type: Boolean, default: false } })
 const household = mongoose.model('household', { 'name': String, 'location': Number, 'houseNumber': Number })
 const requestchange = mongoose.model('request', { 'name': String, 'phoneNumber': String, 'location': Number, 'houseNumber': Number, 'status': String })
@@ -64,12 +61,8 @@ app.use('/login', (req, res) => {
                         req.session.password = password
                         req.session.name = infos.name
                         req.session.number = infos.phoneNumber
-                        fs.readFile('./WebContent/loginsuc.html', 'utf-8', (err, data) => {
-                            if (err) {
-                                res.send("<p>login error!</p>")
-                            } else {
-                                res.send(data)
-                            }
+                        res.sendFile('loginsuc.html', { root: path.join(__dirname, 'WebContent') }, (err) => {
+                            console.log(err)
                         })
                     } else {
                         ejs.renderFile('./WebContent/login.html', data = { tip: "用户名或密码错误！" }, (err, str) => {

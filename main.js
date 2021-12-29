@@ -85,7 +85,7 @@ app.post('/add', (req, res) => {
     var name = req.body.name
     var number = req.body.number
     var username = req.body.username
-    userinfo.count({ 'username': username }, (err, num) => {
+    userinfo.count({ 'name': name }, (err, num) => {
         if (num) {
             ejs.renderFile('./WebContent/reg.html', data = { al: "用户名已存在！" }, (err, str) => {
                 res.send(str)

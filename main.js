@@ -16,7 +16,8 @@ const e = require('express')
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 const port = 10520
-// mongoose.connect('mongodb://172.21.2.236/test');数据库请链接你的数据库
+mongoose.connect('mongodb://localhost/test')
+// mongoose.connect('mongodb://172.21.2.236:10520/190110910520');数据库请链接你的数据库
 const userinfo = mongoose.model('user', { 'name': String, 'phoneNumber': String, 'username': { type: String, unique: true }, 'password': String, 'administrator': { type: Boolean, default: false } })
 const household = mongoose.model('household', { 'name': String, 'location': Number, 'houseNumber': Number })
 const requestchange = mongoose.model('request', { 'name': String, 'phoneNumber': String, 'location': Number, 'houseNumber': Number, 'status': String })
@@ -47,7 +48,11 @@ app.use('/login', (req, res) => {
     var username = req.body.username
     var password = req.body.password
     userinfo.count({ 'username': username, 'password': password }, callback = (err, counts) => {
-        if (err) console.log(err)
+        if (counts == 0) {
+            ejs.renderFile('./WebContent/login.html', data = { tip: "用户名或密码错误！" }, (err, str) => {
+                res.send(str)
+            })
+        }
         else {
             var numbers_fit = counts
             userinfo.findOne({ 'username': username, 'password': password }, callback = (err, infos) => {
@@ -79,7 +84,7 @@ app.use('/login', (req, res) => {
 
 app.get('/add', (req, res) => {
     res.sendFile('add.html', { root: path.join(__dirname, 'WebContent') }, (err) => {
-        res.send("操作失败！")
+        console.log(err)
     })
 })
 
@@ -297,6 +302,12 @@ app.get('/photo/building.jfif', (req, res) => {
 
 app.get('/photo/back.jfif', (req, res) => {
     res.sendFile('back.jfif', { root: path.join(__dirname, 'photo') }, (err) => {
+        console.log(err)
+    })
+})
+
+app.get('/favicon.ico',(req,res)=>{
+    res.sendFile('favicon.ico', { root: path.join(__dirname, 'photo') }, (err) => {
         console.log(err)
     })
 })

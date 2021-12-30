@@ -4,12 +4,12 @@ const path = require('path')
 const mongoose = require('mongoose')
 const session = require('express-session')
 const bodyParser = require('body-parser')
+const app = express()
 app.use(session({
     secret: 'miaojunjie',
     resave: false,
     saveUninitialized: true
 }))
-const app = express()
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 const port = 10520
@@ -87,15 +87,16 @@ app.post('/add', (req, res) => {
     var username = req.body.username
     userinfo.count({ 'name': name }, (err, num) => {
         if (num) {
-            ejs.renderFile('./WebContent/reg.html', data = { al: "用户名已存在！" }, (err, str) => {
+            ejs.renderFile('./WebContent/reg.html', data = { al: "用户已存在！" }, (err, str) => {
                 res.send(str)
             })
         } else {
             var password = req.body.password
             var housePer = new userinfo({ 'name': name, 'phoneNumber': number, 'username': username, 'password': password })
-            housePer.save()
-            res.sendFile('regcomplete.html', { root: path.join(__dirname, 'WebContent') }, (err) => {
-                res.send("操作失败！")
+            housePer.save().then((value)=>{
+                res.sendFile('regcomplete.html', { root: path.join(__dirname, 'WebContent') }, (err) => {
+                    console.log(err)
+                })
             })
         }
     })
